@@ -27,6 +27,7 @@ env/
 data/raw/
 data/processed/
 data/annotations/
+*.zip
 
 # Trained model checkpoints
 results/models/
