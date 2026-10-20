@@ -113,7 +113,7 @@ def main() -> None:
     parser.add_argument("--clips", type=Path, default=Path("data/processed/clips/clips.jsonl"))
     parser.add_argument("--manifest", type=Path, default=Path("data/processed/manifest.jsonl"))
     parser.add_argument("--output", type=Path, default=Path("results/metrics/main"))
-    parser.add_argument("--device", choices=("cuda", "cpu"), default="cuda")
+    parser.add_argument("--device", choices=("cuda", "cpu", "mps"), default="cuda")
     parser.add_argument("--epochs", type=int, default=15)
     parser.add_argument("--batch-size", type=int, default=4)
     parser.add_argument("--seed", type=int, default=42)

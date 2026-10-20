@@ -22,10 +22,12 @@ from .checkpoint import atomic_save, load_checkpoint, restore_rng, rng_state
 
 
 def device_from_name(name: str) -> torch.device:
-    if name not in ("cuda", "cpu"):
-        raise ValueError("Choose --device cuda or cpu")
+    if name not in ("cuda", "cpu", "mps"):
+        raise ValueError("Choose --device cuda, cpu, or mps")
     if name == "cuda" and not torch.cuda.is_available():
         raise RuntimeError("CUDA requested but unavailable on this machine")
+    if name == "mps" and not torch.backends.mps.is_available():
+        raise RuntimeError("MPS requested but unavailable on this machine")
     return torch.device(name)
 
 
