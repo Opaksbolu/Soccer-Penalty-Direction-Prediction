@@ -1,0 +1,153 @@
+{
+  "accuracy": 0.3333333333333333,
+  "macro_f1": 0.28888888888888886,
+  "per_class": {
+    "left": {
+      "precision": 0.4666666666666667,
+      "recall": 0.4666666666666667,
+      "f1": 0.4666666666666667,
+      "support": 15
+    },
+    "right": {
+      "precision": 0.1111111111111111,
+      "recall": 0.1111111111111111,
+      "f1": 0.1111111111111111,
+      "support": 9
+    }
+  },
+  "confusion_matrix": [
+    [
+      7,
+      8
+    ],
+    [
+      8,
+      1
+    ]
+  ],
+  "fold": 0,
+  "horizon": 1.0,
+  "prediction_latency_seconds": 0.052004314208327664,
+  "predictions": [
+    {
+      "kick_id": "18-1",
+      "truth": 0,
+      "prediction": 1
+    },
+    {
+      "kick_id": "18-10",
+      "truth": 0,
+      "prediction": 0
+    },
+    {
+      "kick_id": "18-11",
+      "truth": 0,
+      "prediction": 0
+    },
+    {
+      "kick_id": "18-12",
+      "truth": 0,
+      "prediction": 0
+    },
+    {
+      "kick_id": "18-13",
+      "truth": 1,
+      "prediction": 0
+    },
+    {
+      "kick_id": "18-2",
+      "truth": 0,
+      "prediction": 1
+    },
+    {
+      "kick_id": "18-3",
+      "truth": 0,
+      "prediction": 1
+    },
+    {
+      "kick_id": "18-4",
+      "truth": 0,
+      "prediction": 1
+    },
+    {
+      "kick_id": "18-5",
+      "truth": 0,
+      "prediction": 1
+    },
+    {
+      "kick_id": "18-6",
+      "truth": 0,
+      "prediction": 1
+    },
+    {
+      "kick_id": "18-7",
+      "truth": 0,
+      "prediction": 0
+    },
+    {
+      "kick_id": "18-8",
+      "truth": 0,
+      "prediction": 0
+    },
+    {
+      "kick_id": "18-9",
+      "truth": 1,
+      "prediction": 0
+    },
+    {
+      "kick_id": "2-1",
+      "truth": 0,
+      "prediction": 0
+    },
+    {
+      "kick_id": "2-2",
+      "truth": 1,
+      "prediction": 0
+    },
+    {
+      "kick_id": "2-3",
+      "truth": 1,
+      "prediction": 0
+    },
+    {
+      "kick_id": "2-4",
+      "truth": 1,
+      "prediction": 0
+    },
+    {
+      "kick_id": "2-5",
+      "truth": 0,
+      "prediction": 1
+    },
+    {
+      "kick_id": "2-6",
+      "truth": 1,
+      "prediction": 1
+    },
+    {
+      "kick_id": "9-1",
+      "truth": 0,
+      "prediction": 0
+    },
+    {
+      "kick_id": "9-2",
+      "truth": 1,
+      "prediction": 0
+    },
+    {
+      "kick_id": "9-3",
+      "truth": 1,
+      "prediction": 0
+    },
+    {
+      "kick_id": "9-5",
+      "truth": 1,
+      "prediction": 0
+    },
+    {
+      "kick_id": "9-6",
+      "truth": 0,
+      "prediction": 1
+    }
+  ]
+}
