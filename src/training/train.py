@@ -64,12 +64,20 @@ def predict(model: nn.Module, rows: list[dict], device: torch.device,
     loader = _loader(rows, batch_size, False, False, class_order=class_order)
     if device.type == "cuda":
         torch.cuda.synchronize()
+    elif device.type == "mps":
+        torch.mps.synchronize()
+
     start = time.perf_counter()
+
     for frames, _ in loader:
         logits = model(frames.to(device))
         predictions.extend(logits.argmax(dim=1).cpu().tolist())
+
     if device.type == "cuda":
         torch.cuda.synchronize()
+    elif device.type == "mps":
+        torch.mps.synchronize()
+
     return predictions, (time.perf_counter() - start) / max(1, len(rows))
 
 

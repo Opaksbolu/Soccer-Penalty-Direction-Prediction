@@ -102,11 +102,38 @@ def build_manifest(csv_path: Path, video_dir: Path, output: Path,
     # Version 2 contains one mislabeled 15-3 sequence embedded in kick_id 16-3.
     # Its 22.963 FPS matches video 15-03; the true 16-3 rows are 27.416 FPS.
     if "16-3" in df[kick_col].astype(str).values and fps_col:
-        repair_mask = (df[kick_col].astype(str) == "16-3") & (pd.to_numeric(df[fps_col], errors="coerce").sub(22.963).abs() < 0.002)
+        repair_mask = (
+            (df[kick_col].astype(str) == "16-3")
+            & (
+                pd.to_numeric(df[fps_col], errors="coerce")
+                .sub(22.963)
+                .abs()
+                < 0.002
+            )
+        )
+
         if repair_mask.any():
+            repaired_rows = int(repair_mask.sum())
+
+            # Correct the kick identifier using the matching video FPS.
             df.loc[repair_mask, kick_col] = "15-3"
-            repairs.append({"original_kick_id": "16-3", "corrected_kick_id": "15-3",
-                            "rows": int(repair_mask.sum()), "reason": "released CSV merged clips with distinct FPS; verified against video 15-03"})
+
+            # The video filename and sequence numbering support player 15.
+            # This is an inferred metadata correction, not identity verification.
+            if player_col:
+                df.loc[repair_mask, player_col] = 15
+            elif "kicker" in df.columns:
+                df.loc[repair_mask, "kicker"] = 15
+
+            repairs.append({
+                "original_kick_id": "16-3",
+                "corrected_kick_id": "15-3",
+                "rows": repaired_rows,
+                "reason": (
+                    "Separated merged sequences using video FPS; "
+                    "player 15 inferred from video filename and sequence numbering"
+                ),
+            })
     for raw_id, original_group in df.groupby(kick_col, sort=False):
         try:
             kick_id = _safe_id(raw_id)
