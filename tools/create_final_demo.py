@@ -144,7 +144,7 @@ for frame_number in range(TOTAL_FRAMES):
     else:
         frame = background()
         heading(frame, "EXPERIMENTAL FINDINGS")
-        text(frame, "Deep model accuracy (0.2s): 49.58%", 65, 235, 0.85)
+        text(frame, "GRU accuracy (0.2s): 53.78%", 65, 235, 0.85)
         text(frame, "Pose logistic accuracy (0.2s): 63.87%", 65, 305, 0.85)
         text(frame, "Majority baseline accuracy: 55.46%", 65, 375, 0.85)
         text(frame, "Key finding: The pose baseline performed better.", 65, 480, 0.72)
