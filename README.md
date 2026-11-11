@@ -82,3 +82,14 @@ Run local checks with `pytest -q`. The tests cover contact-safe frame selection,
 - One center kick is insufficient for credible three-class training or cross-validation. The released data supports exploratory left/right experiments only.
 - Automatic kicker selection requires an available YOLO weight file and can fail on crowded or ball-obscured footage. The explicit box option is the fallback.
 - End-to-end CPU latency and GPU training metrics must be measured on their intended machines; the local development environment is not a substitute for the NVIDIA run.
+
+---
+
+## Professor-requested single-frame comparison (integrated November 2026)
+
+See **[FINAL_PROJECT_GUIDE.md](FINAL_PROJECT_GUIDE.md)** for installation, verification,
+reproducible paired five-fold comparison commands, resume instructions, and research caveats.
+The new command is `python -m src.compare_single_frame --device mps --epochs 15 --batch-size 4`.
+It compares a frozen pretrained MobileNetV3-Small + GRU with a frozen pretrained
+MobileNetV3-Small single-frame linear classifier at 1.0s, 0.5s and 0.2s.
+The binary left/right experiment excludes center kicks; no new scores are asserted until training runs.

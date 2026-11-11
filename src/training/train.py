@@ -18,6 +18,7 @@ from src.data.dataset import ClipDataset
 from src.evaluation.metrics import classification_metrics
 from src.evaluation.splits import group_keys
 from src.models.video import MobileNetGRU
+from src.models.single_frame import MobileNetSingleFrame
 from .checkpoint import atomic_save, load_checkpoint, restore_rng, rng_state
 
 
@@ -85,7 +86,10 @@ def train_fold(train_rows: list[dict], test_rows: list[dict], fold: int,
                horizon: float, output: Path, *, device_name: str = "cuda",
                epochs: int = 15, batch_size: int = 4, learning_rate: float = 1e-3,
                seed: int = 42, pretrained: bool = True, resume: bool = False,
-               class_order: tuple[str, ...] = CLASSES) -> dict:
+               class_order: tuple[str, ...] = CLASSES,
+               architecture: str = "gru") -> dict:
+    if architecture not in ("gru", "single_frame"):
+        raise ValueError("architecture must be gru or single_frame")
     device = device_from_name(device_name)
     if not train_rows or not test_rows:
         raise ValueError("empty train or test partition")
@@ -96,20 +100,21 @@ def train_fold(train_rows: list[dict], test_rows: list[dict], fold: int,
         torch.cuda.manual_seed_all(seed)
     fit_rows, val_rows = validation_partition(train_rows, seed)
     config = {"fold": fold, "horizon": horizon, "batch_size": batch_size,
-              "learning_rate": learning_rate, "seed": seed, "architecture": "mobilenet_v3_small_gru",
+              "learning_rate": learning_rate, "seed": seed, "architecture": "mobilenet_v3_small_gru" if architecture == "gru" else "mobilenet_v3_small_single_frame",
               "hidden_size": 128, "dropout": 0.3, "class_order": list(class_order),
               "fit_ids": sorted(row["kick_id"] for row in fit_rows),
               "val_ids": sorted(row["kick_id"] for row in val_rows),
               "test_ids": sorted(row["kick_id"] for row in test_rows)}
     output.mkdir(parents=True, exist_ok=True)
     last_path, best_path = output / "last.pt", output / "best.pt"
-    model = MobileNetGRU(pretrained=pretrained and not resume, num_classes=len(class_order)).to(device)
+    model_type = MobileNetGRU if architecture == "gru" else MobileNetSingleFrame
+    model = model_type(pretrained=pretrained and not resume, num_classes=len(class_order)).to(device)
     counts = np.bincount([class_order.index(row["direction"]) for row in fit_rows], minlength=len(class_order))
     weights = torch.tensor(len(fit_rows) / (len(class_order) * np.maximum(counts, 1)),
                            dtype=torch.float32, device=device)
     criterion = nn.CrossEntropyLoss(weight=weights)
-    optimizer = torch.optim.AdamW(list(model.gru.parameters()) + list(model.head.parameters()),
-                                  lr=learning_rate, weight_decay=1e-3)
+    trainable = [p for p in model.parameters() if p.requires_grad]
+    optimizer = torch.optim.AdamW(trainable, lr=learning_rate, weight_decay=1e-3)
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.5)
     generator = torch.Generator().manual_seed(seed)
     start_epoch, best_score = 0, -1.0

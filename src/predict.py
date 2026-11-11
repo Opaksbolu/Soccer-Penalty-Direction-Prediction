@@ -15,6 +15,7 @@ from src.data.common import CLASSES, FRAMES, IMAGE_SIZE
 from src.data.dataset import IMAGENET_MEAN, IMAGENET_STD
 from src.data.preprocess import square_crop
 from src.models.video import MobileNetGRU
+from src.models.single_frame import MobileNetSingleFrame
 from src.training.checkpoint import load_checkpoint
 from src.training.train import device_from_name
 
@@ -112,15 +113,24 @@ def predict_clip(video: Path, checkpoint: Path, horizon: float, *, device_name: 
     class_order = tuple(config["class_order"])
     if abs(config["horizon"] - horizon) > 1e-6 or not set(class_order).issubset(CLASSES):
         raise ValueError("Checkpoint horizon or class order does not match request")
-    model = MobileNetGRU(pretrained=False, hidden_size=config.get("hidden_size", 128),
-                         dropout=config.get("dropout", 0.3), num_classes=len(class_order)).to(device)
+    architecture = config.get("architecture", "mobilenet_v3_small_gru")
+    if architecture == "mobilenet_v3_small_single_frame":
+        model = MobileNetSingleFrame(pretrained=False, dropout=config.get("dropout", 0.3),
+                                     num_classes=len(class_order)).to(device)
+    elif architecture == "mobilenet_v3_small_gru":
+        model = MobileNetGRU(pretrained=False, hidden_size=config.get("hidden_size", 128),
+                             dropout=config.get("dropout", 0.3), num_classes=len(class_order)).to(device)
+    else:
+        raise ValueError(f"Unsupported checkpoint architecture: {architecture}")
     model.load_state_dict(saved["model"])
     model.eval()
     with torch.no_grad():
         probabilities = torch.softmax(model(inputs), dim=1)[0].cpu().tolist()
     if device.type == "cuda":
         torch.cuda.synchronize()
-    return {"prediction": class_order[int(np.argmax(probabilities))],
+    elif device.type == "mps":
+        torch.mps.synchronize()
+    return {"architecture": architecture, "prediction": class_order[int(np.argmax(probabilities))],
             "probabilities": dict(zip(class_order, probabilities)), "horizon_seconds": horizon,
             "device": device_name, "end_to_end_latency_seconds": time.perf_counter() - start}
 
@@ -130,7 +140,7 @@ def main() -> None:
     parser.add_argument("--video", type=Path, required=True)
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--horizon", type=float, choices=(1.0, 0.5, 0.2), required=True)
-    parser.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
+    parser.add_argument("--device", choices=("cpu", "cuda", "mps"), default="cpu")
     parser.add_argument("--kicker-box", type=float, nargs=4, metavar=("CX", "CY", "W", "H"))
     parser.add_argument("--detector-weights", default="yolov8n.pt")
     args = parser.parse_args()
