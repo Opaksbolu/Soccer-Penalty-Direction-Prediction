@@ -1,0 +1,399 @@
+{
+  "caveat": "Inference timing includes decoding all 16 frames, not isolated model latency.",
+  "complete_requested_run": true,
+  "paired_differences": {
+    "0.2": {
+      "accuracy_gru_minus_single_frame": 0.025210084033613467,
+      "macro_f1_gru_minus_single_frame": 0.014790830391255949
+    },
+    "0.5": {
+      "accuracy_gru_minus_single_frame": -0.03361344537815125,
+      "macro_f1_gru_minus_single_frame": -0.030128936986124844
+    },
+    "1.0": {
+      "accuracy_gru_minus_single_frame": -0.025210084033613467,
+      "macro_f1_gru_minus_single_frame": -0.01612960973863231
+    }
+  },
+  "scientific_pretrained_weights": true,
+  "summary": {
+    "0.2_gru": {
+      "accuracy": 0.5378151260504201,
+      "complete_five_folds": true,
+      "confusion_matrix": [
+        [
+          45,
+          21
+        ],
+        [
+          34,
+          19
+        ]
+      ],
+      "folds": 5,
+      "macro_f1": 0.5146459028550241,
+      "mean_seconds_per_kick_including_decode": 0.05296604943903345,
+      "n_test_predictions": 119,
+      "per_class": {
+        "left": {
+          "f1": 0.6206896551724138,
+          "precision": 0.569620253164557,
+          "recall": 0.6818181818181818,
+          "support": 66
+        },
+        "right": {
+          "f1": 0.40860215053763443,
+          "precision": 0.475,
+          "recall": 0.3584905660377358,
+          "support": 53
+        }
+      }
+    },
+    "0.2_majority": {
+      "accuracy": 0.5546218487394958,
+      "complete_five_folds": true,
+      "confusion_matrix": [
+        [
+          66,
+          0
+        ],
+        [
+          53,
+          0
+        ]
+      ],
+      "folds": 5,
+      "macro_f1": 0.3567567567567568,
+      "n_test_predictions": 119,
+      "per_class": {
+        "left": {
+          "f1": 0.7135135135135136,
+          "precision": 0.5546218487394958,
+          "recall": 1.0,
+          "support": 66
+        },
+        "right": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 53
+        }
+      }
+    },
+    "0.2_pose_logistic": {
+      "accuracy": 0.6386554621848739,
+      "complete_five_folds": true,
+      "confusion_matrix": [
+        [
+          45,
+          21
+        ],
+        [
+          22,
+          31
+        ]
+      ],
+      "folds": 5,
+      "macro_f1": 0.6335839598997494,
+      "n_test_predictions": 119,
+      "per_class": {
+        "left": {
+          "f1": 0.6766917293233082,
+          "precision": 0.6716417910447762,
+          "recall": 0.6818181818181818,
+          "support": 66
+        },
+        "right": {
+          "f1": 0.5904761904761905,
+          "precision": 0.5961538461538461,
+          "recall": 0.5849056603773585,
+          "support": 53
+        }
+      }
+    },
+    "0.2_single_frame": {
+      "accuracy": 0.5126050420168067,
+      "complete_five_folds": true,
+      "confusion_matrix": [
+        [
+          40,
+          26
+        ],
+        [
+          32,
+          21
+        ]
+      ],
+      "folds": 5,
+      "macro_f1": 0.49985507246376815,
+      "mean_seconds_per_kick_including_decode": 0.03362757092981385,
+      "n_test_predictions": 119,
+      "per_class": {
+        "left": {
+          "f1": 0.5797101449275363,
+          "precision": 0.5555555555555556,
+          "recall": 0.6060606060606061,
+          "support": 66
+        },
+        "right": {
+          "f1": 0.42,
+          "precision": 0.44680851063829785,
+          "recall": 0.39622641509433965,
+          "support": 53
+        }
+      }
+    },
+    "0.5_gru": {
+      "accuracy": 0.5042016806722689,
+      "complete_five_folds": true,
+      "confusion_matrix": [
+        [
+          33,
+          33
+        ],
+        [
+          26,
+          27
+        ]
+      ],
+      "folds": 5,
+      "macro_f1": 0.5029380530973452,
+      "mean_seconds_per_kick_including_decode": 0.053612568389351634,
+      "n_test_predictions": 119,
+      "per_class": {
+        "left": {
+          "f1": 0.528,
+          "precision": 0.559322033898305,
+          "recall": 0.5,
+          "support": 66
+        },
+        "right": {
+          "f1": 0.4778761061946903,
+          "precision": 0.45,
+          "recall": 0.5094339622641509,
+          "support": 53
+        }
+      }
+    },
+    "0.5_majority": {
+      "accuracy": 0.5546218487394958,
+      "complete_five_folds": true,
+      "confusion_matrix": [
+        [
+          66,
+          0
+        ],
+        [
+          53,
+          0
+        ]
+      ],
+      "folds": 5,
+      "macro_f1": 0.3567567567567568,
+      "n_test_predictions": 119,
+      "per_class": {
+        "left": {
+          "f1": 0.7135135135135136,
+          "precision": 0.5546218487394958,
+          "recall": 1.0,
+          "support": 66
+        },
+        "right": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 53
+        }
+      }
+    },
+    "0.5_pose_logistic": {
+      "accuracy": 0.5714285714285714,
+      "complete_five_folds": true,
+      "confusion_matrix": [
+        [
+          35,
+          31
+        ],
+        [
+          20,
+          33
+        ]
+      ],
+      "folds": 5,
+      "macro_f1": 0.5713074803983895,
+      "n_test_predictions": 119,
+      "per_class": {
+        "left": {
+          "f1": 0.5785123966942148,
+          "precision": 0.6363636363636364,
+          "recall": 0.5303030303030303,
+          "support": 66
+        },
+        "right": {
+          "f1": 0.5641025641025641,
+          "precision": 0.515625,
+          "recall": 0.6226415094339622,
+          "support": 53
+        }
+      }
+    },
+    "0.5_single_frame": {
+      "accuracy": 0.5378151260504201,
+      "complete_five_folds": true,
+      "confusion_matrix": [
+        [
+          38,
+          28
+        ],
+        [
+          27,
+          26
+        ]
+      ],
+      "folds": 5,
+      "macro_f1": 0.53306699008347,
+      "mean_seconds_per_kick_including_decode": 0.03384882087740158,
+      "n_test_predictions": 119,
+      "per_class": {
+        "left": {
+          "f1": 0.5801526717557252,
+          "precision": 0.5846153846153846,
+          "recall": 0.5757575757575758,
+          "support": 66
+        },
+        "right": {
+          "f1": 0.48598130841121495,
+          "precision": 0.48148148148148145,
+          "recall": 0.49056603773584906,
+          "support": 53
+        }
+      }
+    },
+    "1.0_gru": {
+      "accuracy": 0.453781512605042,
+      "complete_five_folds": true,
+      "confusion_matrix": [
+        [
+          34,
+          32
+        ],
+        [
+          33,
+          20
+        ]
+      ],
+      "folds": 5,
+      "macro_f1": 0.44611528822055135,
+      "mean_seconds_per_kick_including_decode": 0.054477881383922136,
+      "n_test_predictions": 119,
+      "per_class": {
+        "left": {
+          "f1": 0.5112781954887218,
+          "precision": 0.5074626865671642,
+          "recall": 0.5151515151515151,
+          "support": 66
+        },
+        "right": {
+          "f1": 0.38095238095238093,
+          "precision": 0.38461538461538464,
+          "recall": 0.37735849056603776,
+          "support": 53
+        }
+      }
+    },
+    "1.0_majority": {
+      "accuracy": 0.5546218487394958,
+      "complete_five_folds": true,
+      "confusion_matrix": [
+        [
+          66,
+          0
+        ],
+        [
+          53,
+          0
+        ]
+      ],
+      "folds": 5,
+      "macro_f1": 0.3567567567567568,
+      "n_test_predictions": 119,
+      "per_class": {
+        "left": {
+          "f1": 0.7135135135135136,
+          "precision": 0.5546218487394958,
+          "recall": 1.0,
+          "support": 66
+        },
+        "right": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 53
+        }
+      }
+    },
+    "1.0_pose_logistic": {
+      "accuracy": 0.3697478991596639,
+      "complete_five_folds": true,
+      "confusion_matrix": [
+        [
+          26,
+          40
+        ],
+        [
+          35,
+          18
+        ]
+      ],
+      "folds": 5,
+      "macro_f1": 0.36688657161098104,
+      "n_test_predictions": 119,
+      "per_class": {
+        "left": {
+          "f1": 0.4094488188976378,
+          "precision": 0.4262295081967213,
+          "recall": 0.3939393939393939,
+          "support": 66
+        },
+        "right": {
+          "f1": 0.32432432432432434,
+          "precision": 0.3103448275862069,
+          "recall": 0.33962264150943394,
+          "support": 53
+        }
+      }
+    },
+    "1.0_single_frame": {
+      "accuracy": 0.4789915966386555,
+      "complete_five_folds": true,
+      "confusion_matrix": [
+        [
+          39,
+          27
+        ],
+        [
+          35,
+          18
+        ]
+      ],
+      "folds": 5,
+      "macro_f1": 0.46224489795918366,
+      "mean_seconds_per_kick_including_decode": 0.04548405575265708,
+      "n_test_predictions": 119,
+      "per_class": {
+        "left": {
+          "f1": 0.5571428571428572,
+          "precision": 0.527027027027027,
+          "recall": 0.5909090909090909,
+          "support": 66
+        },
+        "right": {
+          "f1": 0.3673469387755102,
+          "precision": 0.4,
+          "recall": 0.33962264150943394,
+          "support": 53
+        }
+      }
+    }
+  }
+}

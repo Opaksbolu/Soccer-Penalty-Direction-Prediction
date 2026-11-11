@@ -1,0 +1,25 @@
+{
+  "architectures": [
+    "gru",
+    "single_frame"
+  ],
+  "batch_size": 4,
+  "class_order": [
+    "left",
+    "right"
+  ],
+  "clips_sha256": "009f093b56327781827ba7f96caa7e5979f7c9068f7e00e680fd4c43f2bb121c",
+  "comparison_version": 2,
+  "device": "mps",
+  "epochs": 15,
+  "fold": null,
+  "folds": 5,
+  "horizons": [
+    1.0,
+    0.5,
+    0.2
+  ],
+  "manifest_sha256": "4577aa1f8f343344eb42039427d908bae59cf461e9d43d0ece4300e720aab5ba",
+  "pretrained": true,
+  "seed": 42
+}
